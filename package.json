@@ -1,0 +1,23 @@
+{
+  "name": "com.wtfgames.hephaestus.scenes",
+  "version": "0.0.1",
+  "displayName": "Hephaestus Scenes",
+  "description": "Hephaestus Scenes is a part of the Hephaestus Core framework that helps operate with Unity scenes.",
+  "unity": "2019.2",
+  "keywords": [
+    "unity",
+    "mobile",
+    "framework",
+    "localdata"
+  ],
+  "author": {
+    "name": "WTFGames",
+    "email": "serhii.chechui@gmail.com",
+    "url": "https://github.com/serhii-chechui"
+  },
+  "dependencies": {
+    "com.wtfgames.hephaestus.core": "0.0.1"
+  }
+}
+        
+        
