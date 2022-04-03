@@ -1,16 +1,23 @@
 ﻿using HephaestusMobile.ScenesSystem.Config;
+using HephaestusMobile.ScenesSystem.Signals;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace HephaestusMobile.ScenesSystem {
     public class ScenesManager : MonoBehaviour, IScenesManager {
+    
+        readonly SignalBus _signalBus;
 
         private ScenesManagerConfig _scenesManagerConfig;
 
         public AsyncOperation CurrentLoadingOperation { get; private set; }
 
         public void Initialize(ScenesManagerConfig scenesManagerConfig) {
+            
             _scenesManagerConfig = scenesManagerConfig;
+            
+            _signalBus.Subscribe<ISceneChangeSignal>(x => LoadSceneByKeyFromConfig(x.SceneKey));
         }
 
         public void LoadScene(int sceneIndex, LoadSceneMode loadSceneMode = LoadSceneMode.Single) {
