@@ -7,6 +7,7 @@ using Zenject;
 namespace HephaestusMobile.ScenesSystem {
     public class ScenesManager : MonoBehaviour, IScenesManager {
     
+        [Inject]
         readonly SignalBus _signalBus;
 
         private ScenesManagerConfig _scenesManagerConfig;
