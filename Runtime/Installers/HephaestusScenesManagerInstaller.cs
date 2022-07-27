@@ -9,7 +9,6 @@ namespace Installers
         public override void InstallBindings()
         {
             // Declare signals
-            SignalBusInstaller.Install(Container);
             Container.DeclareSignal<ISceneChangeSignal>();
             
             // Bind entities
