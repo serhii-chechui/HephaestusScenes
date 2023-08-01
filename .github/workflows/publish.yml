@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Authenticate with Verdaccio
         run: npm config set 'http://18.195.169.73:4873/:_authToken' 'CVWjjCu6WyjhEd+si2puYA=='
 
