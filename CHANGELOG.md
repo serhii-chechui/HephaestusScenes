@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2023-08-01
+
+### Changed
+
+- Changed the dependencies and ```publishConfig```;
+
 ## [1.1.0] - 2023-08-01
 
 ### Added
