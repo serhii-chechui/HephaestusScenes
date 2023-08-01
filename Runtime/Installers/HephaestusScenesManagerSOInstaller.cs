@@ -1,8 +1,7 @@
-using HephaestusMobile.ScenesSystem.Config;
 using UnityEngine;
 using Zenject;
 
-namespace Installers
+namespace Hephaestus.Scenes
 {
     [CreateAssetMenu(fileName = "HephaestusScenesManagerSOInstaller", menuName = "HephaestusMobile/Core/Scenes/HephaestusScenesManagerSOInstaller")]
     public class HephaestusScenesManagerSOInstaller : ScriptableObjectInstaller<HephaestusScenesManagerSOInstaller>

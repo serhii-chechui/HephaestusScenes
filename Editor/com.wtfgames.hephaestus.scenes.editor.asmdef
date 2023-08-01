@@ -1,5 +1,6 @@
 {
-    "name": "Unity.HephaestusScenes.Editor",
+    "name": "com.wtfgames.hephaestus.scenes.editor",
+    "rootNamespace": "Hephaestus.Scenes.Editor",
     "references": [
         "GUID:343deaaf83e0cee4ca978e7df0b80d21",
         "GUID:04fe5a1d90a2d48fe8d4993c6e6efe8d"

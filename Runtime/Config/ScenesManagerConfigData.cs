@@ -1,14 +1,15 @@
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
-namespace HephaestusMobile.ScenesSystem.Data {
+namespace Hephaestus.Scenes {
     [Serializable]
     public class ScenesManagerConfigData {
-        public string sceneKey;
+        public int sceneKey;
         public string sceneName;
         #if UNITY_EDITOR
         public SceneAsset sceneAsset;
         #endif
-        public bool loadAsync;
     }
 }

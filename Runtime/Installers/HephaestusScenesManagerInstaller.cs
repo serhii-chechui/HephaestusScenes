@@ -1,8 +1,6 @@
-using HephaestusMobile.ScenesSystem;
-using HephaestusMobile.ScenesSystem.Signals;
 using Zenject;
 
-namespace Installers
+namespace Hephaestus.Scenes
 {
     public class HephaestusScenesManagerInstaller : Installer<HephaestusScenesManagerInstaller>
     {
