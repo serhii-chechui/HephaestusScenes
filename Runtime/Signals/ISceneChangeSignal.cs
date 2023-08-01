@@ -1,7 +1,9 @@
-namespace HephaestusMobile.ScenesSystem.Signals
+using System;
+
+namespace Hephaestus.Scenes
 {
     public interface ISceneChangeSignal
     {
-        string SceneKey { get; set; }
+        Enum SceneKey { get; set; }
     }
 }
