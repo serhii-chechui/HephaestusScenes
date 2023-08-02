@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0] - 2023-08-02
+
+### Changed
+ 
+- Implemented ability to load and unload the scenes using ```UniTask```;
+- Changed the signatures for methods using for loading scenes by adding `LoadingMode` parameter;  
+
 ## [1.1.1] - 2023-08-01
 
 ### Changed
