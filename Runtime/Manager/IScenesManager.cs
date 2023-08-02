@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
+#if USE_UNITASK
 using Cysharp.Threading.Tasks;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
