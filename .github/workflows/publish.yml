@@ -10,15 +10,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Authenticate with Verdaccio
-        run: npm config set 'http://18.195.169.73:4873/:_authToken' 'CVWjjCu6WyjhEd+si2puYA=='
+        run: echo "//18.195.169.73:4873/:_authToken=${VERDACCIO_TOKEN}" >> ~/.npmrc
+        env:
+          VERDACCIO_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
       - name: Publish to Verdaccio
         run: npm publish
