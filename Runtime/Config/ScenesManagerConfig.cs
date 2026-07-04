@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hephaestus.Scenes {
+namespace WTFGames.Hephaestus.ScenesSystem
+{
     [CreateAssetMenu(fileName = "ScenesManagerConfig", menuName = "HephaestusMobile/Core/Scenes/ScenesManagerConfig", order = 0)]
     public class ScenesManagerConfig : ScriptableObject
     {
-        public ScenesManagerConfigConstants scenesManagerConfigConstants;
-        
+        public ScenesManagerConstants scenesManagerConstants;
+
         [HideInInspector]
         public List<ScenesManagerConfigData> scenesDataList = new List<ScenesManagerConfigData>();
     }

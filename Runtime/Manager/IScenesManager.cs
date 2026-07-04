@@ -6,11 +6,12 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hephaestus.Scenes {
-    public interface IScenesManager {
-        
+namespace WTFGames.Hephaestus.ScenesSystem
+{
+    public interface IScenesManager
+    {
         AsyncOperation CurrentLoadingOperation { get; }
-        
+
         /// <summary>
         /// Returns the current loaded scene index.
         /// </summary>
@@ -38,9 +39,8 @@ namespace Hephaestus.Scenes {
         /// <param name="sceneKey">The related scene key.</param>
         /// <returns>Returns an AsyncOperation.</returns>
         AsyncOperation UnloadScene(Enum sceneKey);
-        
-        #if USE_UNITASK
 
+        #if USE_UNITASK
         /// <summary>
         /// Load the scene using UniTask.
         /// </summary>
@@ -51,7 +51,7 @@ namespace Hephaestus.Scenes {
         UniTask LoadSceneUniTask(Enum sceneKey, LoadSceneMode loadSceneMode, CancellationToken cancellationToken);
         
         UniTask UnloadSceneUniTask(Enum sceneKey, CancellationToken cancellationToken);
-        
+
         #endif
     }
 }

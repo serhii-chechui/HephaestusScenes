@@ -7,9 +7,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Hephaestus.Scenes {
-    public class ScenesManager : IInitializable, IDisposable, IScenesManager {
-    
+namespace WTFGames.Hephaestus.ScenesSystem
+{
+    public class ScenesManager : IInitializable, IDisposable, IScenesManager
+    {
         [Inject]
         readonly SignalBus _signalBus;
 
@@ -17,7 +18,7 @@ namespace Hephaestus.Scenes {
         private ScenesManagerConfig _scenesManagerConfig;
 
         public AsyncOperation CurrentLoadingOperation { get; private set; }
-        
+
         public void Initialize()
         {
             Debug.Log("Hephaestus Scenes Manager Initialization.");
@@ -29,12 +30,13 @@ namespace Hephaestus.Scenes {
             Debug.Log("Hephaestus Scenes Manager Dispose.");
             // _signalBus.TryUnsubscribe<ISceneChangeSignal>(x => ScenesManager.LoadSceneAsync(x.SceneKey));
         }
-        
+
         /// <inheritdoc cref="IScenesManager"/>
-        public int GetCurrentSceneIndex() {
+        public int GetCurrentSceneIndex()
+        {
             return SceneManager.GetActiveScene().buildIndex;
         }
-        
+
         /// <inheritdoc cref="IScenesManager"/>
         public void LoadScene(Enum sceneKey, LoadSceneMode loadSceneMode)
         {
@@ -58,7 +60,6 @@ namespace Hephaestus.Scenes {
         }
 
         #if USE_UNITASK
-        
         /// <inheritdoc cref="IScenesManager"/>
         public UniTask LoadSceneUniTask(Enum sceneKey, LoadSceneMode loadSceneMode, CancellationToken cancellationToken)
         {
