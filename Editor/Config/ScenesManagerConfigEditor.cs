@@ -39,17 +39,19 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
 
         private void DrawHeader(Rect rect)
         {
-            EditorGUI.LabelField(rect, "Scenes List: [Scene Key | Scene Name | Load Async]", EditorStyles.boldLabel);
+            EditorGUI.LabelField(rect, "Scenes List: [Scene Key | Scene Name]", EditorStyles.boldLabel);
         }
 
         private void AddElementCallback(ReorderableList reorderableList)
         {
+            Undo.RecordObject(target, "Add Scene Entry");
             ScenesManagerConfig.scenesDataList.Add(new ScenesManagerConfigData());
             EditorUtility.SetDirty(target);
         }
 
         private void RemoveElementCallback(ReorderableList reorderableList)
         {
+            Undo.RecordObject(target, "Remove Scene Entry");
             ScenesManagerConfig.scenesDataList.RemoveAt(reorderableList.index);
             EditorUtility.SetDirty(target);
         }
@@ -63,17 +65,22 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
             var xPos = rect.x;
             var width = rect.width;
 
-            item.sceneKey =
-                EditorGUI.Popup(new Rect(xPos, rect.y, width * 0.5f - 8f, EditorGUIUtility.singleLineHeight),
-                    item.sceneKey, _keys);
+            var keyRect = new Rect(xPos, rect.y, width * 0.5f - 8f, EditorGUIUtility.singleLineHeight);
 
-            item.sceneAsset = (SceneAsset)EditorGUI.ObjectField(
+            var newSceneKey = _keys != null && _keys.Length > 0
+                ? EditorGUI.Popup(keyRect, item.sceneKey, _keys)
+                : EditorGUI.IntField(keyRect, item.sceneKey);
+
+            var newSceneAsset = (SceneAsset)EditorGUI.ObjectField(
                 new Rect(xPos + width * 0.5f, rect.y, width * 0.5f, rect.height), item.sceneAsset, typeof(SceneAsset),
                 false);
-            item.sceneName = item.sceneAsset != null ? item.sceneAsset.name : "";
 
             if (EditorGUI.EndChangeCheck())
             {
+                Undo.RecordObject(target, "Edit Scene Entry");
+                item.sceneKey = newSceneKey;
+                item.sceneAsset = newSceneAsset;
+                item.sceneName = item.sceneAsset != null ? item.sceneAsset.name : "";
                 EditorUtility.SetDirty(target);
             }
         }
@@ -85,7 +92,13 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
             if (ScenesManagerConfig.scenesManagerConstants != null)
             {
                 _keys = ScenesManagerConfig.scenesManagerConstants.sceneMapKeys.ToArray();
-                ConvertIntValuesFromKeys(_keys);
+            }
+            else
+            {
+                _keys = null;
+                EditorGUILayout.HelpBox(
+                    "Assign a ScenesManagerConstants asset to edit scene keys by name. Without it the keys are edited as raw integers.",
+                    MessageType.Warning);
             }
 
             // Actually draw the list in the inspector
@@ -100,16 +113,6 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
             {
                 EditorUtility.SetDirty(target);
                 AssetDatabase.SaveAssets();
-            }
-        }
-
-        private void ConvertIntValuesFromKeys(string[] input)
-        {
-            var options = new int[input.Length];
-
-            for (int i = 0; i < options.Length; i++)
-            {
-                options[i] = i;
             }
         }
     }

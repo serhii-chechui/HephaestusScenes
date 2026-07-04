@@ -14,8 +14,6 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
 
         private string _enumClassName = "ScenesManagerConfigConstants";
 
-        private string _path;
-
         private string _newConstantKey = string.Empty;
 
         public override void OnInspectorGUI()
@@ -39,14 +37,42 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
 
             if (GUILayout.Button("Pick", GUILayout.Width(96)))
             {
-                mapConstants.enumsPath = EditorUtility.OpenFolderPanel("Pick The Folder", "", "");
+                var absolutePath = EditorUtility.OpenFolderPanel("Pick The Folder", Application.dataPath, "");
+
+                if (!string.IsNullOrEmpty(absolutePath))
+                {
+                    var relativePath = FileUtil.GetProjectRelativePath(absolutePath);
+
+                    if (string.IsNullOrEmpty(relativePath))
+                    {
+                        EditorUtility.DisplayDialog("Invalid Folder",
+                            "The folder must be inside the project, otherwise the path breaks on other machines.", "OK");
+                    }
+                    else
+                    {
+                        Undo.RecordObject(mapConstants, "Change Enums Path");
+                        mapConstants.enumsPath = relativePath;
+                        EditorUtility.SetDirty(mapConstants);
+                    }
+                }
             }
 
             EditorGUILayout.EndHorizontal();
 
             if (GUILayout.Button("Export to enum", GUILayout.ExpandWidth(true), GUILayout.Height(32)))
             {
-                ExportKeysToEnum(mapConstants);
+                if (string.IsNullOrEmpty(mapConstants.enumsPath))
+                {
+                    EditorUtility.DisplayDialog("No Export Path", "Pick the export folder first.", "OK");
+                }
+                else if (string.IsNullOrEmpty(_enumClassName))
+                {
+                    EditorUtility.DisplayDialog("No Enum Class Name", "Enter the enum class name first.", "OK");
+                }
+                else
+                {
+                    ExportKeysToEnum(mapConstants);
+                }
             }
 
             EditorGUILayout.EndVertical();
@@ -61,7 +87,13 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
 
             if (GUILayout.Button($"Add New {EntityType} Key", GUILayout.ExpandWidth(true), GUILayout.Height(32)))
             {
-                mapConstants.sceneMapKeys.Add(_newConstantKey);
+                if (!string.IsNullOrEmpty(_newConstantKey))
+                {
+                    Undo.RecordObject(mapConstants, "Add Scene Key");
+                    mapConstants.sceneMapKeys.Add(_newConstantKey);
+                    EditorUtility.SetDirty(mapConstants);
+                    _newConstantKey = string.Empty;
+                }
             }
 
             EditorGUILayout.EndVertical();
@@ -72,20 +104,42 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
 
             EditorGUILayout.LabelField($"List of {EntityType} Keys:", EditorStyles.largeLabel);
 
-            if (mapConstants.sceneMapKeys == null) return;
+            if (mapConstants.sceneMapKeys == null)
+            {
+                EditorGUILayout.EndVertical();
+                return;
+            }
+
+            var removeIndex = -1;
 
             for (int i = 0; i < mapConstants.sceneMapKeys.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                mapConstants.sceneMapKeys[i] = EditorGUILayout.TextField(mapConstants.sceneMapKeys[i]);
+                EditorGUI.BeginChangeCheck();
+
+                var newKey = EditorGUILayout.TextField(mapConstants.sceneMapKeys[i]);
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(mapConstants, "Edit Scene Key");
+                    mapConstants.sceneMapKeys[i] = newKey;
+                    EditorUtility.SetDirty(mapConstants);
+                }
 
                 if (GUILayout.Button("Remove"))
                 {
-                    mapConstants.sceneMapKeys.RemoveAt(i);
+                    removeIndex = i;
                 }
 
                 EditorGUILayout.EndHorizontal();
+            }
+
+            if (removeIndex >= 0)
+            {
+                Undo.RecordObject(mapConstants, "Remove Scene Key");
+                mapConstants.sceneMapKeys.RemoveAt(removeIndex);
+                EditorUtility.SetDirty(mapConstants);
             }
 
             EditorGUILayout.EndVertical();
@@ -115,7 +169,7 @@ namespace WTFGames.Hephaestus.ScenesSystem.Editor
             }
 
             _stringBuilder.Append("}");
-            
+
             var filename = $"{_enumClassName}.cs";
             File.WriteAllText(Path.Combine(scenesManagerConstants.enumsPath, filename), _stringBuilder.ToString());
             AssetDatabase.Refresh();
