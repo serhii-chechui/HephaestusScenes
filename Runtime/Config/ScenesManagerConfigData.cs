@@ -3,9 +3,11 @@ using System;
 using UnityEditor;
 #endif
 
-namespace Hephaestus.Scenes {
+namespace WTFGames.Hephaestus.ScenesSystem
+{
     [Serializable]
-    public class ScenesManagerConfigData {
+    public class ScenesManagerConfigData
+    {
         public int sceneKey;
         public string sceneName;
         #if UNITY_EDITOR

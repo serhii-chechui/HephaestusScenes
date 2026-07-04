@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Hephaestus.Scenes
+namespace WTFGames.Hephaestus.ScenesSystem
 {
     public class HephaestusScenesManagerInstaller : Installer<HephaestusScenesManagerInstaller>
     {
@@ -8,7 +8,7 @@ namespace Hephaestus.Scenes
         {
             // Declare signals
             Container.DeclareSignal<ISceneChangeSignal>();
-            
+
             // Bind entities
             Container.BindInterfacesTo<ScenesManager>().AsSingle();
         }

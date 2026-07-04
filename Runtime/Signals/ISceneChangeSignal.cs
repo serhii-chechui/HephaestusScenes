@@ -1,6 +1,6 @@
 using System;
 
-namespace Hephaestus.Scenes
+namespace WTFGames.Hephaestus.ScenesSystem
 {
     public interface ISceneChangeSignal
     {

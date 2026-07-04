@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Hephaestus.Scenes
+namespace WTFGames.Hephaestus.ScenesSystem
 {
     [CreateAssetMenu(fileName = "HephaestusScenesManagerSOInstaller", menuName = "HephaestusMobile/Core/Scenes/HephaestusScenesManagerSOInstaller")]
     public class HephaestusScenesManagerSOInstaller : ScriptableObjectInstaller<HephaestusScenesManagerSOInstaller>
