@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- EditMode test coverage: scene key resolution (found, missing, unassigned, duplicates, lazy init) and Zenject installer bindings;
+- `Tests/Editor` assembly `com.wtfgames.hephaestus.scenes.tests` with `InternalsVisibleTo` access to the runtime assembly;
+
 ## [1.2.2] - 2026-07-04
 
 ### Changed

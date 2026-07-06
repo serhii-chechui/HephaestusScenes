@@ -99,7 +99,7 @@ namespace WTFGames.Hephaestus.ScenesSystem
             }
         }
 
-        private string GetSceneNameFromKey(Enum sceneKey)
+        internal string GetSceneNameFromKey(Enum sceneKey)
         {
             if (_sceneNamesByKey == null)
             {
