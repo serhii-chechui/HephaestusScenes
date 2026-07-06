@@ -1,11 +1,19 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.3] - 2026-07-06
 
 ### Added
 
-- EditMode test coverage: scene key resolution (found, missing, unassigned, duplicates, lazy init) and Zenject installer bindings;
+- EditMode test coverage: scene key resolution (found, missing, unassigned, duplicates, lazy init) and Zenject installer bindings — verified in Unity 6000.3.6f1;
 - `Tests/Editor` assembly `com.wtfgames.hephaestus.scenes.tests` with `InternalsVisibleTo` access to the runtime assembly;
+
+### Changed
+
+- The publish workflow reads the Verdaccio token from the `VERDACCIO_TOKEN` repository secret and uses the scheme-less npm auth key;
+
+### Removed
+
+- Leftover tutorial GitHub Actions workflow;
 
 ## [1.2.2] - 2026-07-04
 

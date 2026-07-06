@@ -37,7 +37,7 @@ Add the scoped registries to your project `Packages/manifest.json`:
 Then add the dependency:
 
 ```json
-"com.wtfgames.hephaestus.scenes": "1.2.2"
+"com.wtfgames.hephaestus.scenes": "1.2.3"
 ```
 
 ## Usage
